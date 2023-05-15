@@ -1,0 +1,154 @@
+{
+  "categories": [
+    {
+      "background": "color\u003d#6B89A5",
+      "id": "3f0c41b2-75b7-4b12-9a00-6ca8cce14c3e",
+      "name": "ASF",
+      "shortcuts": [
+        {
+          "codeOnPrepare": "if (getVariable(/*[variable]*/\"cc941a6e-1da0-43e9-920e-59f2436c060e\"/*[/variable]*/) \u003d\u003d \"\") {\n    setVariable(/*[variable]*/\"cc941a6e-1da0-43e9-920e-59f2436c060e\"/*[/variable]*/, prompt(\"Please enter your ASF URL\"));\n}\n\nif (getVariable(/*[variable]*/\"cc941a6e-1da0-43e9-920e-59f2436c060e\"/*[/variable]*/) \u003d\u003d \"\") {\n    showToast(\"ASF URL still empty, aborting.\");\n    abort();\n}\n\n\nif (getVariable(/*[variable]*/\"d426864b-c98c-43ea-8bdc-d5006bc4d8d2\"/*[/variable]*/) \u003d\u003d \"\") {\n    setVariable(/*[variable]*/\"d426864b-c98c-43ea-8bdc-d5006bc4d8d2\"/*[/variable]*/, promptPassword(\"Please enter your ASF password\"));\n}\n\nif (getVariable(/*[variable]*/\"d426864b-c98c-43ea-8bdc-d5006bc4d8d2\"/*[/variable]*/) \u003d\u003d \"\") {\n    showToast(\"ASF password still empty, aborting.\");\n    abort();\n}\n\n\nif (getVariable(/*[variable]*/\"76ecabec-210b-419f-9f37-b6f6d549b1b7\"/*[/variable]*/) \u003d\u003d \"\") {\n    setVariable(/*[variable]*/\"76ecabec-210b-419f-9f37-b6f6d549b1b7\"/*[/variable]*/, prompt(\"Please enter your ASF bot name\"));\n}\n\nif (getVariable(/*[variable]*/\"76ecabec-210b-419f-9f37-b6f6d549b1b7\"/*[/variable]*/) \u003d\u003d \"\") {\n    showToast(\"ASF bot name still empty, aborting.\");\n    abort();\n}",
+          "description": "Asks for ASF URL, password and bot name",
+          "executionType": "scripting",
+          "iconName": "custom-icon_x1682863045379.png",
+          "id": "ebec0843-54c3-4094-9c12-9eb46399fc4f",
+          "name": "Setup ASF Variables"
+        },
+        {
+          "codeOnPrepare": "executeShortcut(/*[shortcut]*/\"ebec0843-54c3-4094-9c12-9eb46399fc4f\"/*[/shortcut]*/);\n\nexecuteShortcut(/*[shortcut]*/\"814b1259-50fa-4bbe-9e7e-85dcfab3e0e6\"/*[/shortcut]*/);",
+          "codeOnSuccess": "if (getVariable(/*[variable]*/\"cc188dda-9fb0-4cb3-98bf-e186574aa635\"/*[/variable]*/) \u003d\u003d \"start\") {\n    showToast(\"Bot \" + getVariable(/*[variable]*/\"76ecabec-210b-419f-9f37-b6f6d549b1b7\"/*[/variable]*/) + \" started.\");\n} else {\n    showToast(\"Bot \" + getVariable(/*[variable]*/\"76ecabec-210b-419f-9f37-b6f6d549b1b7\"/*[/variable]*/) + \" stopped.\");\n}",
+          "description": "Toggles bot",
+          "headers": [
+            {
+              "id": "69d3a5b4-234f-47f1-8fac-2e63884082a1",
+              "key": "Authentication",
+              "value": "{{d426864b-c98c-43ea-8bdc-d5006bc4d8d2}}"
+            }
+          ],
+          "iconName": "custom-icon_x1682863045379.png",
+          "id": "1b74a691-c323-49a8-8895-5dd615f673ab",
+          "method": "POST",
+          "name": "Toggle ASF Bot",
+          "responseHandling": {
+            "failureOutput": "simple",
+            "successOutput": "none",
+            "uiType": "toast"
+          },
+          "retryPolicy": "wait_for_internet",
+          "url": "{{cc941a6e-1da0-43e9-920e-59f2436c060e}}/api/bot/{{76ecabec-210b-419f-9f37-b6f6d549b1b7}}/{{cc188dda-9fb0-4cb3-98bf-e186574aa635}}"
+        },
+        {
+          "codeOnSuccess": "for (key in JSON.parse(response.body).Result) {\n    var botState \u003d JSON.parse(response.body).Result[key].IsConnectedAndLoggedOn;\n}\n\nif (botState) {\n    setVariable(/*[variable]*/\"cc188dda-9fb0-4cb3-98bf-e186574aa635\"/*[/variable]*/, \"stop\");\n} else {\n    setVariable(/*[variable]*/\"cc188dda-9fb0-4cb3-98bf-e186574aa635\"/*[/variable]*/, \"start\");\n}",
+          "description": "Sets next toggle action based on current bot status",
+          "headers": [
+            {
+              "id": "8473abc2-4e98-4f48-9d21-18b7b1861be3",
+              "key": "Authentication",
+              "value": "{{d426864b-c98c-43ea-8bdc-d5006bc4d8d2}}"
+            }
+          ],
+          "iconName": "custom-icon_x1682863045379.png",
+          "id": "814b1259-50fa-4bbe-9e7e-85dcfab3e0e6",
+          "name": "Set ASF Toggle Action",
+          "responseHandling": {
+            "failureOutput": "simple",
+            "successOutput": "none",
+            "uiType": "toast"
+          },
+          "retryPolicy": "wait_for_internet",
+          "url": "{{cc941a6e-1da0-43e9-920e-59f2436c060e}}/api/bot/{{76ecabec-210b-419f-9f37-b6f6d549b1b7}}"
+        },
+        {
+          "codeOnPrepare": "executeShortcut(/*[shortcut]*/\"ebec0843-54c3-4094-9c12-9eb46399fc4f\"/*[/shortcut]*/);",
+          "codeOnSuccess": "showToast(\"ASF belonging to bot \" + getVariable(/*[variable]*/\"76ecabec-210b-419f-9f37-b6f6d549b1b7\"/*[/variable]*/) + \" restarted.\");",
+          "description": "Restarts ASF",
+          "headers": [
+            {
+              "id": "5dc34a9f-2af9-4850-9f87-b9520433ab49",
+              "key": "Authentication",
+              "value": "{{d426864b-c98c-43ea-8bdc-d5006bc4d8d2}}"
+            }
+          ],
+          "iconName": "custom-icon_x1682863045379.png",
+          "id": "1c8cc4bc-fb75-4630-969e-a3e7460e696f",
+          "method": "POST",
+          "name": "Restart ASF",
+          "responseHandling": {
+            "failureOutput": "simple",
+            "successOutput": "none",
+            "uiType": "toast"
+          },
+          "retryPolicy": "wait_for_internet",
+          "url": "{{cc941a6e-1da0-43e9-920e-59f2436c060e}}/api/asf/restart"
+        },
+        {
+          "codeOnPrepare": "executeShortcut(/*[shortcut]*/\"ebec0843-54c3-4094-9c12-9eb46399fc4f\"/*[/shortcut]*/);",
+          "codeOnSuccess": "showToast(\"ASF belonging to bot \" + getVariable(/*[variable]*/\"76ecabec-210b-419f-9f37-b6f6d549b1b7\"/*[/variable]*/) + \" updated.\");",
+          "description": "Updates ASF",
+          "headers": [
+            {
+              "id": "2ca0e925-e62b-4f06-b525-6b2a924e8739",
+              "key": "Authentication",
+              "value": "{{d426864b-c98c-43ea-8bdc-d5006bc4d8d2}}"
+            }
+          ],
+          "iconName": "custom-icon_x1682863045379.png",
+          "id": "ea6e85b0-045c-4e36-8996-3397a8c05bab",
+          "method": "POST",
+          "name": "Update ASF",
+          "responseHandling": {
+            "failureOutput": "simple",
+            "successOutput": "none",
+            "uiType": "toast"
+          },
+          "retryPolicy": "wait_for_internet",
+          "url": "{{cc941a6e-1da0-43e9-920e-59f2436c060e}}/api/asf/update"
+        },
+        {
+          "bodyContent": "{\n  \"Command\": \"asfeupdate\"\n}",
+          "codeOnPrepare": "executeShortcut(/*[shortcut]*/\"ebec0843-54c3-4094-9c12-9eb46399fc4f\"/*[/shortcut]*/);",
+          "codeOnSuccess": "if (JSON.parse(response.body).Result !\u003d \"\u003cASFE\u003e The plugin is up to date, no need to update\") {\n    showToast(\"ASFE belonging to bot \" + getVariable(/*[variable]*/\"76ecabec-210b-419f-9f37-b6f6d549b1b7\"/*[/variable]*/) + \" updated.\");\n    wait(5000);\n    executeShortcut(/*[shortcut]*/\"1c8cc4bc-fb75-4630-969e-a3e7460e696f\"/*[/shortcut]*/);\n} else {\n    showToast(\"ASFE belonging to bot \" + getVariable(/*[variable]*/\"76ecabec-210b-419f-9f37-b6f6d549b1b7\"/*[/variable]*/) + \" is already up to date.\");\n}",
+          "contentType": "application/json",
+          "description": "Runs a command to update ASFEnhance and restarts ASF if necessary",
+          "headers": [
+            {
+              "id": "41c4130f-7934-4b2a-94c8-27a7d1309551",
+              "key": "Authentication",
+              "value": "{{d426864b-c98c-43ea-8bdc-d5006bc4d8d2}}"
+            }
+          ],
+          "iconName": "custom-icon_x1682863045379.png",
+          "id": "fdee0fb1-10d2-463f-a413-305fdc7b24b8",
+          "method": "POST",
+          "name": "Update ASFE",
+          "responseHandling": {
+            "failureOutput": "simple",
+            "successOutput": "none",
+            "uiType": "toast"
+          },
+          "retryPolicy": "wait_for_internet",
+          "url": "{{cc941a6e-1da0-43e9-920e-59f2436c060e}}/api/command"
+        }
+      ]
+    }
+  ],
+  "variables": [
+    {
+      "id": "cc188dda-9fb0-4cb3-98bf-e186574aa635",
+      "key": "asf_toggle_action",
+      "urlEncode": true
+    },
+    {
+      "id": "cc941a6e-1da0-43e9-920e-59f2436c060e",
+      "key": "asf_url"
+    },
+    {
+      "id": "d426864b-c98c-43ea-8bdc-d5006bc4d8d2",
+      "key": "asf_password"
+    },
+    {
+      "id": "76ecabec-210b-419f-9f37-b6f6d549b1b7",
+      "key": "asf_bot_name"
+    }
+  ],
+  "version": 59
+}
