@@ -1,6 +1,6 @@
 **📢 This repo is maintained and up to date.**
 
-<sup>(If it ever gets abandoned, this date will be far in the past: <i>May 15, 2023</i> )</sup>
+<sup>(If it ever gets abandoned, this date will be far in the past: <i>October 13, 2023</i> )</sup>
 
 ---
 
@@ -9,7 +9,7 @@ Control your [ASF](https://github.com/JustArchiNET/ArchiSteamFarm) bot from Andr
 
 ## 🛠️ Setup
   - Download [HTTP Shortcuts](https://http-shortcuts.rmy.ch/)
-  - Under "Import / Export", choose "Import from URL", enter<br>`https://github.com/Wyrrrd/asf-controls/releases/latest/download/shortcuts.zip`
+  - Click [here](https://http-shortcuts.rmy.ch/import?url=https%3A%2F%2Fgithub.com%2FWyrrrd%2Fasf-controls%2Freleases%2Flatest%2Fdownload%2Fshortcuts.zip) to import
   - On first use, this will ask for your ASF URL, password and bot, but you can also set the variables `asf_url`, `asf_password` and `asf_bot_name` manually
 
 ## 🤲 Usage
